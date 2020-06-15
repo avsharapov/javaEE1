@@ -1,4 +1,4 @@
-package com.inno.ConnectionManager;
+package stc.inno.ConnectionManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,20 +8,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 @EJB
 public class ConnectionManagerJdbcImpl implements ConnectionManager {
   private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionManagerJdbcImpl.class);
-  private static ConnectionManager connectionManager;
-
-  private ConnectionManagerJdbcImpl() {
-  }
-
-  public static ConnectionManager getInstance() {
-    if (connectionManager == null) {
-      connectionManager = new ConnectionManagerJdbcImpl();
-    }
-    return connectionManager;
-  }
 
   @Override
   public Connection getConnection() {
@@ -29,17 +19,12 @@ public class ConnectionManagerJdbcImpl implements ConnectionManager {
     try {
       Class.forName("org.postgresql.Driver");
       connection = DriverManager.getConnection(
-          "jdbc:postgresql://host.docker.internal:5433/mobile",
-/*          "jdbc:postgresql://localhost:5433/mobile",*/
-          "postgres",
-          "qwerty");
-    } catch (ClassNotFoundException | SQLException e) {
+              "jdbc:postgresql://pde:5432/jdbcDB",
+              "postgres",
+              "qwerty");
+    } catch (SQLException | ClassNotFoundException e) {
       LOGGER.error("Some thing wrong in getConnection method", e);
     }
     return connection;
-  }
-
-  @Override public int get15() {
-    return 15;
   }
 }

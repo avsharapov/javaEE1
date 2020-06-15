@@ -1,4 +1,4 @@
-package com.inno.pojo;
+package stc.inno.pojo;
 
 public class Mobile {
   private Integer id;

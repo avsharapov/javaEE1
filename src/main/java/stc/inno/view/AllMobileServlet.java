@@ -1,7 +1,8 @@
-package com.inno.servlet;
+package stc.inno.view;
 
-import com.inno.dao.MobileDao;
-import com.inno.pojo.Mobile;
+import com.sun.net.httpserver.HttpServer;
+import stc.inno.dao.MobileDao;
+import stc.inno.pojo.Mobile;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -10,18 +11,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collection;
+import java.util.List;
 
-@WebServlet(urlPatterns = "/allmobiles", name = "Mobiles")
-public class AllMobilesServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/")
+public class AllMobileServlet extends HttpServlet {
     @Inject
     private MobileDao mobileDao;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Collection<Mobile> mobiles = mobileDao.getAllMobile();
+        final List<Mobile> allMobile = mobileDao.getAllMobile();
+        req.setAttribute("mobiles", allMobile);
 
-        req.setAttribute("model", mobiles);
         req.getRequestDispatcher("WEB-INF/jsp/allmobiles.jsp").forward(req, resp);
     }
 }

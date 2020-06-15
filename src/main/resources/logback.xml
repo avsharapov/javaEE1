@@ -25,7 +25,7 @@
     </encoder>
   </appender>
 
-  <logger name="stc.inno20.Main" level="trace" additivity="false">
+  <logger name="stc.inno.Main" level="trace" additivity="false">
     <appender-ref ref="CONSOLE"/>
     <appender-ref ref="FILE"/>
   </logger>
